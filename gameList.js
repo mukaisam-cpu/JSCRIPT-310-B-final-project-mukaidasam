@@ -1,5 +1,9 @@
 /**
  * Saved list of games and methods for editing the list.
+ * 
+ * @var savedList: Array of game IDs. Instantiated based on contents of local storage item
+ * "gameList". Is a list of RetroAchievements game IDs saved as strings. Save to local
+ * storage "gameList" as a stringified JSON.
  */
 class gameList {
     constructor() {
@@ -13,7 +17,7 @@ class gameList {
     }
 
     clearGameList() {
-        this.gameList = [];
+        this.savedList = [];
         localStorage.setItem("gameList", null);
     }
 }
