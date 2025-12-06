@@ -13,11 +13,23 @@ class gameList {
         if(jsonList !== "null"){
             let parsedList = JSON.parse(jsonList);
             this.savedList = parsedList;
-        }
-    }
+        };
+    };
 
+    /**
+     * Clear game list and delete localStorage "gameList".
+     */
     clearGameList() {
         this.savedList = [];
         localStorage.setItem("gameList", null);
-    }
+    };
+
+    /**
+     * Add RetroAchievements game ID to list and save list in local storage.
+     * @param {string} gameID 
+     */
+    addToList(gameID) {
+        this.savedList.push(gameID);
+        localStorage.setItem("gameList", JSON.stringify(this.savedList));
+    };
 }
