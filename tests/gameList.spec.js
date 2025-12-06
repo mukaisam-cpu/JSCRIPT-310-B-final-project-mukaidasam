@@ -33,7 +33,17 @@ describe("Saved Games List", () => {
 
         const expectedList = ["2983", "3224", "14475", "20583"];
         expect(testGameList.savedList).toEqual(expectedList);
-
         expect(JSON.parse(localStorage.getItem("gameList"))).toEqual(expectedList);
     });
+
+    it("Should remove a game ID from the list and update local storage accordingly", () => {
+        const testList = ["2983", "3224", "14475"];
+        localStorage.setItem("gameList", JSON.stringify(testList));
+        let testGameList = new gameList();
+        testGameList.removeFromList("3224");
+
+        const expectedList = ["2983", "14475"];
+        expect(testGameList.savedList).toEqual(expectedList);
+        expect(JSON.parse(localStorage.getItem("gameList"))).toEqual(expectedList);
+    })
 });

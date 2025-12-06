@@ -32,4 +32,22 @@ class gameList {
         this.savedList.push(gameID);
         localStorage.setItem("gameList", JSON.stringify(this.savedList));
     };
+
+    /**
+     * Remove game ID from list and update list in local storage.
+     * @param {string} gameID 
+     * @returns {boolean} Return true if ID successfully deletes, false if the ID was not
+     * found in the list.
+     */
+    removeFromList(gameID) {
+        const index = this.savedList.indexOf(gameID);
+        // If ID is not found, index will be -1
+        if(index !== -1) {
+            this.savedList.splice(index, 1);
+            localStorage.setItem("gameList", JSON.stringify(this.savedList));
+        } else {
+            console.log(`WARNING: Trying to delete game id ${gameID} from saved list,
+                game ID not found`);
+        }
+    }
 }
