@@ -1,7 +1,9 @@
 describe("Saved Games List", () => {
     it("Should instantiate with an empty list if there is nothing saved in local storage", 
         () => {
-
+            localStorage.setItem("gameList", null);
+            let testGameList = new gameList();
+            expect(testGameList.savedList).toEqual([]);
         }
     );
 

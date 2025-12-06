@@ -4,9 +4,9 @@
 class gameList {
     constructor() {
         this.savedList = [];
-        jsonList = localStorage.getItem("gameList");
-        if(jsonList != null){
-            parsedList = JSON.parse(jsonList);
+        let jsonList = localStorage.getItem("gameList");
+        if(jsonList !== "null"){
+            let parsedList = JSON.parse(jsonList);
             this.savedList = parsedList;
         }
     }
