@@ -3,6 +3,7 @@
  */
 class gameList {
     constructor() {
+        // debugger;
         this.savedList = [];
         let jsonList = localStorage.getItem("gameList");
         if(jsonList !== "null"){
