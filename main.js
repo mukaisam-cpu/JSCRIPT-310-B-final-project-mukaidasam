@@ -57,6 +57,7 @@ const createGameCard = (game) => {
     pageButton.setAttribute("class", "btn btn-primary");
     pageButton.setAttribute("href", `https://retroachievements.org/game/${game.id}`);
     pageButton.setAttribute("role", "button");
+    pageButton.setAttribute("target", "_blank");
     pageButton.innerText = "Visit Game Page";
     cardBody.appendChild(pageButton);
     const saveButton = document.createElement("button");
