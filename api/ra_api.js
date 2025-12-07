@@ -20,7 +20,7 @@ class RA_API {
         return(fetch(url)
             .then(response => response.json())
             .then(obj => {
-                let systemList = []
+                let systemList = [];
                 for(let i = 0; i < obj.length; i++) {
                     const system = new System(obj[i].ID, obj[i].Name, obj[i].IconURL);
                     systemList.push(system);
@@ -41,7 +41,17 @@ class RA_API {
     async getGamesForSystem(systemID) {
         const url = `${RA_WEBSITE}/API/API_GetGameList.php?&y=${API_KEY}&i=${systemID}&f=1`
         return(fetch(url)
-            .then(response => response.json()));
+            .then(response => response.json())
+            .then(obj => {
+                let gameList = [];
+                for(let i = 0; i < obj.length; i++) {
+                    const game = new Game(obj[i].ID, obj[i].Title, obj[i].ConsoleID, obj[i].ConsoleName,
+                        obj[i].ImageIcon, obj[i].NumAchievements, obj[i].NumLeaderboards, obj[i].Points)
+                    gameList.push(game);
+                }
+                console.log(gameList);
+            })
+        );
     }
 
 }
