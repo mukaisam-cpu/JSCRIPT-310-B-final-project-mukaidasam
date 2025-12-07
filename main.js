@@ -6,8 +6,15 @@ const searchButton = document.getElementById("search-button");
 const selectSystem = document.getElementById("select-system");
 const gameListEl = document.getElementById("game-list");
 
+const savedListButton = document.getElementById("saved-list-button");
+
 const TEST_GAME_ID = "6135"
 const TEST_SYSTEM_ID = "41"
+
+const api = new RA_API();
+const savedGames = new GameList();
+
+let savedListDisplay = false;
 
 /**
  * Populate select element with all current systems and their corresponding IDs.
@@ -87,21 +94,8 @@ const saveGameToList = function(e) {
     this.classList.toggle("btn-danger");
 }
 
-/** Populate games list when selecting a system */
-selectSystem.addEventListener("change", (e) => {
-    console.log("changed", e.target.value);
-    gameListEl.innerHTML = "";
-    api.getGamesForSystem(e.target.value)
-    .then(games => {
-        for(let i = 0; i < games.length; i++){
-            createGameCard(games[i]);
-        };
-    });
-});
-
 /** Search, filter game list, and populate page */
-gameSearchForm.addEventListener("submit", (e) => {
-    e.preventDefault();
+const filterGames = function(e) {
     console.log(searchField.value);
     console.log(selectSystem.value);
     const systemID = selectSystem.value;
@@ -116,8 +110,32 @@ gameSearchForm.addEventListener("submit", (e) => {
             }
         })
     }
+}
+
+/** Populate games list when selecting a system */
+selectSystem.addEventListener("change", (e) => {
+    console.log("changed", e.target.value);
+    gameListEl.innerHTML = "";
+    api.getGamesForSystem(e.target.value)
+    .then(games => {
+        for(let i = 0; i < games.length; i++){
+            createGameCard(games[i]);
+        };
+    });
 });
 
-const api = new RA_API();
-const savedGames = new GameList();
+gameSearchForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    filterGames(e);
+});
+
+/** Toggle display to show saved or searched games */
+savedListButton.addEventListener("click", (e) => {
+    if(savedListDisplay === false){
+
+    } else {
+
+    }
+});
+
 populateSystemSelect(api);
