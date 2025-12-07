@@ -1,7 +1,7 @@
 const systemSelectForm = document.getElementById("select-system");
 const gameSearchForm = document.getElementById("game-search");
 
-const consoleList = document.getElementById("console-list");
+const selectSystem = document.getElementById("select-system");
 const gameListEl = document.getElementById("game-list");
 
 const TEST_GAME_ID = "6135"
@@ -73,11 +73,16 @@ const createGameCard = (game) => {
     console.log(cardBase);
 }
 
-const api = new RA_API();
-populateSystemSelect(api);
-api.getGamesForSystem(1)
+selectSystem.addEventListener("change", (e) => {
+    console.log("changed", e.target.value);
+    gameListEl.innerHTML = "";
+    api.getGamesForSystem(e.target.value)
     .then(games => {
         for(let i = 0; i < games.length; i++){
             createGameCard(games[i]);
         }
     })
+})
+
+const api = new RA_API();
+populateSystemSelect(api);
