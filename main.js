@@ -77,5 +77,7 @@ const api = new RA_API();
 populateSystemSelect(api);
 api.getGamesForSystem(1)
     .then(games => {
-        createGameCard(games[0]);
+        for(let i = 0; i < games.length; i++){
+            createGameCard(games[i]);
+        }
     })
