@@ -74,10 +74,17 @@ const createGameCard = (game) => {
     gameListEl.appendChild(cardBase);
 }
 
+
 const saveGameToList = function(e) {
-    console.log(this);
-    // this.classList.toggle("btn-primary");
-    // this.classList.toggle("btn-danger");
+    //Lesson of the day- arrow functions do *not* include a "this"
+    console.log(this.value);
+    if(this.classList.contains("btn-primary")){
+        this.innerText = "Remove From List";
+    } else {
+        this.innerText = "Add To Game List"
+    }
+    this.classList.toggle("btn-primary");
+    this.classList.toggle("btn-danger");
 }
 
 /** Populate games list when selecting a system */
