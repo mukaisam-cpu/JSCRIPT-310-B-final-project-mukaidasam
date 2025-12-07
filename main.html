@@ -8,18 +8,20 @@
 </head>
 
 <body>
-    <select class="form-select" id="select-system">
-        <option selected>Select system...</option>
-    </select>
-    <div class="row row-cols-2 justify-content-between">
-        <div class="col-11">
-            <input type="search-game" id="search-game" class="form-control" placeholder="Search game...">
+    <div class="container">
+        <select class="form-select" id="select-system">
+            <option selected value="0">Select system...</option>
+        </select>
+        <form class="row row-cols-2 justify-content-between" id="search-game">
+            <div class="col-11">
+                <input type="search-game" id="search-game-field" class="form-control" placeholder="Search game...">
+            </div>
+            <div class="col-1">
+                <button type="submit" id="search-button" class="btn btn-primary">Search</button>
+            </div>
         </div>
-        <div class="col-1">
-            <button type="search" class="btn btn-primary">Search</button>
-        </div>
+        <div id="game-list" class="row row-cols-1"></div>
     </div>
-    <div id="game-list" class="row row-cols-1"></div>
 
     <script src="api_key.js"></script>
     <script src="class/game.js"></script>

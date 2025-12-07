@@ -1,5 +1,7 @@
 const systemSelectForm = document.getElementById("select-system");
-const gameSearchForm = document.getElementById("game-search");
+const gameSearchForm = document.getElementById("search-game");
+const searchField = document.getElementById("search-game-field");
+const searchButton = document.getElementById("search-button");
 
 const selectSystem = document.getElementById("select-system");
 const gameListEl = document.getElementById("game-list");
@@ -73,6 +75,7 @@ const createGameCard = (game) => {
     console.log(cardBase);
 }
 
+/** Populate games list when selecting a system */
 selectSystem.addEventListener("change", (e) => {
     console.log("changed", e.target.value);
     gameListEl.innerHTML = "";
@@ -80,9 +83,28 @@ selectSystem.addEventListener("change", (e) => {
     .then(games => {
         for(let i = 0; i < games.length; i++){
             createGameCard(games[i]);
-        }
-    })
-})
+        };
+    });
+});
+
+/** Search, filter game list, and populate page */
+gameSearchForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    console.log(searchField.value);
+    console.log(selectSystem.value);
+    const systemID = selectSystem.value;
+    if(systemID > 0){
+        api.getGamesForSystem(systemID)
+        .then(games => {
+            const filteredList = games.filter((game) =>
+            game.title.toUpperCase().includes(searchField.value.toUpperCase()));
+            gameListEl.innerHTML = "";
+            for(let i = 0; i < filteredList.length; i++){
+                createGameCard(filteredList[i]);
+            }
+        })
+    }
+});
 
 const api = new RA_API();
 populateSystemSelect(api);
