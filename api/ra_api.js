@@ -25,7 +25,6 @@ class RA_API {
                     const system = new System(obj[i].ID, obj[i].Name, obj[i].IconURL);
                     systemList.push(system);
                 }
-                console.log(systemList);
                 return(systemList);
             }));
     }
@@ -49,7 +48,6 @@ class RA_API {
                         obj[i].ImageIcon, obj[i].NumAchievements, obj[i].NumLeaderboards, obj[i].Points)
                     gameList.push(game);
                 }
-                console.log(gameList);
                 return(gameList);
             })
         );
