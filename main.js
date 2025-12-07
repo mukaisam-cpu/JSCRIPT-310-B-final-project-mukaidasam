@@ -8,8 +8,8 @@ const gameListEl = document.getElementById("game-list");
 
 const savedListButton = document.getElementById("saved-list-button");
 
-const TEST_GAME_ID = "6135"
-const TEST_SYSTEM_ID = "41"
+/** Delay of API call in ms */
+const API_DELAY = 200
 
 const api = new RA_API();
 const savedGames = new GameList();
@@ -18,9 +18,8 @@ let savedListDisplay = false;
 
 /**
  * Populate select element with all current systems and their corresponding IDs.
- * @param {RA_API} api 
  */
-const populateSystemSelect = (api) => {
+const populateSystemSelect = () => {
     api.getAllSystems()
         .then(systems => {
             console.log(systems);
@@ -35,7 +34,7 @@ const populateSystemSelect = (api) => {
 };
 
 /**
- * @param {RA_API} api 
+ * Create game card HTML object and add it to display.
  * @param {Game} game 
  */
 const createGameCard = (game) => {
@@ -82,7 +81,7 @@ const createGameCard = (game) => {
 }
 
 
-const saveGameToList = function(e) {
+const saveGameToList = function() {
     //Lesson of the day- arrow functions do *not* include a "this"
     console.log(this.value);
     if(this.classList.contains("btn-primary")){
@@ -95,7 +94,7 @@ const saveGameToList = function(e) {
 }
 
 /** Search, filter game list, and populate page */
-const filterGames = function(e) {
+const filterGames = function() {
     console.log(searchField.value);
     console.log(selectSystem.value);
     const systemID = selectSystem.value;
@@ -110,6 +109,11 @@ const filterGames = function(e) {
             }
         })
     }
+}
+
+/** Display all saved games */
+const displaySavedGames = function() {
+
 }
 
 /** Populate games list when selecting a system */
@@ -134,7 +138,7 @@ savedListButton.addEventListener("click", (e) => {
     if(savedListDisplay === false){
 
     } else {
-
+        filterGames(e);
     }
 });
 
