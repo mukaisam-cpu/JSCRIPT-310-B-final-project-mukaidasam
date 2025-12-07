@@ -1,3 +1,4 @@
+const RA_WEBSITE = "https://retroachievements.org"
 /**
  * Functions for RetroAchievements API calls
  * @param {number} delay Delay 
@@ -15,9 +16,18 @@ class RA_API {
      * 'a' and 'g' are set to 1.
      * */
     async getAllSystems() {
-        const url = `https://retroachievements.org/API/API_GetConsoleIDs.php?&y=${API_KEY}&a=1&g=1`
+        const url = `${RA_WEBSITE}/API/API_GetConsoleIDs.php?&y=${API_KEY}&a=1&g=1`
         return(fetch(url)
-            .then(response => response.json()));
+            .then(response => response.json())
+            .then(obj => {
+                let systemList = []
+                for(let i = 0; i < obj.length; i++) {
+                    const system = new System(obj[i].ID, obj[i].Name, obj[i].IconURL);
+                    systemList.push(system);
+                }
+                console.log(systemList);
+                return(systemList);
+            }));
     }
 
     /**
@@ -29,8 +39,9 @@ class RA_API {
      * @param {string} systemID 
      */
     async getGamesForSystem(systemID) {
-        const url = `https://retroachievements.org/API/API_GetGameList.php?&y=${API_KEY}&i=${systemID}&f=1`
+        const url = `${RA_WEBSITE}/API/API_GetGameList.php?&y=${API_KEY}&i=${systemID}&f=1`
         return(fetch(url)
             .then(response => response.json()));
     }
+
 }
