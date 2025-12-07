@@ -50,6 +50,7 @@ class RA_API {
                     gameList.push(game);
                 }
                 console.log(gameList);
+                return(gameList);
             })
         );
     }
