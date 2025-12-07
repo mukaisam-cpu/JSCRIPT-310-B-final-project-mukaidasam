@@ -32,7 +32,6 @@ const populateSystemSelect = (api) => {
  * @param {Game} game 
  */
 const createGameCard = (game) => {
-    console.log(game);
     const cardBase = document.createElement("div");
     cardBase.setAttribute("class", "card mb-3");
     const row = document.createElement("div");
@@ -65,14 +64,20 @@ const createGameCard = (game) => {
     const saveButton = document.createElement("button");
     saveButton.setAttribute("class", "btn btn-primary");
     saveButton.setAttribute("type", "button")
-    // TODO: Attach save function to button
+    saveButton.value = game.id;
     saveButton.innerText = "Add To Game List";
+    saveButton.addEventListener('click', saveGameToList);
     cardBody.appendChild(saveButton);
     row.appendChild(textCol);
 
     cardBase.appendChild(row);
     gameListEl.appendChild(cardBase);
-    console.log(cardBase);
+}
+
+const saveGameToList = function(e) {
+    console.log(this);
+    // this.classList.toggle("btn-primary");
+    // this.classList.toggle("btn-danger");
 }
 
 /** Populate games list when selecting a system */
@@ -107,4 +112,5 @@ gameSearchForm.addEventListener("submit", (e) => {
 });
 
 const api = new RA_API();
+const savedGames = new GameList();
 populateSystemSelect(api);

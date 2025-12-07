@@ -5,7 +5,7 @@
  * "gameList". Is a list of RetroAchievements game IDs saved as strings. Save to local
  * storage "gameList" as a stringified JSON.
  */
-class gameList {
+class GameList {
     constructor() {
         // debugger;
         this.savedList = [];
