@@ -4,7 +4,7 @@ class Game {
         this.title = title;
         this.consoleId = consoleId;
         this.consoleName = consoleName;
-        this.imageIcon = imageIcon;
+        this.imageIcon = `https://retroachievements.org${imageIcon}`;
         this.numAchievements = numAchievements;
         this.numLeaderboards = numLeaderboards;
         this.points = points;
