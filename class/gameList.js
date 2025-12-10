@@ -1,9 +1,8 @@
 /**
  * Saved list of games and methods for editing the list.
  * 
- * @var savedList: Array of game IDs. Instantiated based on contents of local storage item
- * "gameList". Is a list of RetroAchievements game IDs saved as strings. Save to local
- * storage "gameList" as a stringified JSON.
+ * @var savedList: Array of Game class objects. Instantiated based on contents of local storage item
+ * "gameList". Save to local storage "gameList" as a stringified JSON.
  */
 class GameList {
     constructor() {
@@ -14,6 +13,7 @@ class GameList {
             let parsedList = JSON.parse(jsonList);
             this.savedList = parsedList;
         };
+        console.log(this.savedList);
     };
 
     /**
@@ -25,29 +25,34 @@ class GameList {
     };
 
     /**
-     * Add RetroAchievements game ID to list and save list in local storage.
-     * @param {string} gameID 
+     * Add RetroAchievements game obj to list and save list in local storage.
+     * @param {Game} game
      */
-    addToList(gameID) {
-        this.savedList.push(gameID);
+    addToList(game) {
+        this.savedList.push(game);
         localStorage.setItem("gameList", JSON.stringify(this.savedList));
     };
 
     /**
-     * Remove game ID from list and update list in local storage.
-     * @param {string} gameID 
+     * Remove game obj from list and update list in local storage.
+     * @param {number} gameID
      * @returns {boolean} Return true if ID successfully deletes, false if the ID was not
      * found in the list.
      */
     removeFromList(gameID) {
-        const index = this.savedList.indexOf(gameID);
+        const newList = this.savedList.filter(game => game.id !== gameID);
         // If ID is not found, index will be -1
-        if(index !== -1) {
-            this.savedList.splice(index, 1);
-            localStorage.setItem("gameList", JSON.stringify(this.savedList));
+        if(newList !== this.savedList) {
+            localStorage.setItem("gameList", JSON.stringify(newList));
         } else {
-            console.log(`WARNING: Trying to delete game id ${gameID} from saved list,
+            console.log(`WARNING: Trying to delete ${gameID} from saved list,
                 game ID not found`);
         }
+        console.log(this.savedList);
+    }
+    
+    /** Do an API lookup on all saved games, and return a list of Game objects */
+    getGameList() {
+
     }
 }

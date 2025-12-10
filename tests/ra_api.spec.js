@@ -15,6 +15,6 @@ describe("RetroAchievements API", () =>{
             console.log(result);
             debugger;
 
-            const testGame = 
+            const testGame = null;
     });
 })

@@ -12,6 +12,7 @@ const savedListButton = document.getElementById("saved-list-button");
 const API_DELAY = 200
 
 const api = new RA_API();
+let displayedGames = [];
 const savedGames = new GameList();
 
 let savedListDisplay = false;
@@ -38,6 +39,9 @@ const populateSystemSelect = () => {
  * @param {Game} game 
  */
 const createGameCard = (game) => {
+    // Check if game has been saved
+    selGame = savedGames.savedList.filter((savedGame) => savedGame.id === game.id);
+
     const cardBase = document.createElement("div");
     cardBase.setAttribute("class", "card mb-3");
     const row = document.createElement("div");
@@ -68,10 +72,15 @@ const createGameCard = (game) => {
     pageButton.innerText = "Visit Game Page";
     cardBody.appendChild(pageButton);
     const saveButton = document.createElement("button");
-    saveButton.setAttribute("class", "btn btn-primary");
+    if(selGame.length > 0){
+        saveButton.setAttribute("class", "btn btn-danger");
+        saveButton.innerText = "Remove From List";
+    } else {
+        saveButton.setAttribute("class", "btn btn-primary");
+        saveButton.innerText = "Add To Game List";
+    }
     saveButton.setAttribute("type", "button")
     saveButton.value = game.id;
-    saveButton.innerText = "Add To Game List";
     saveButton.addEventListener('click', saveGameToList);
     cardBody.appendChild(saveButton);
     row.appendChild(textCol);
@@ -83,11 +92,19 @@ const createGameCard = (game) => {
 
 const saveGameToList = function() {
     //Lesson of the day- arrow functions do *not* include a "this"
+    //First, pick out game from displayed games list
     console.log(this.value);
+    selGame = displayedGames.filter((game) => String(game.id) === this.value)[0];
+    console.log(JSON.stringify(selGame));
+
     if(this.classList.contains("btn-primary")){
+        // Add game to list
         this.innerText = "Remove From List";
+        savedGames.addToList(selGame);
     } else {
+        // Remove from list
         this.innerText = "Add To Game List"
+        savedGames.removeFromList(selGame.id);
     }
     this.classList.toggle("btn-primary");
     this.classList.toggle("btn-danger");
@@ -107,13 +124,16 @@ const filterGames = function() {
             for(let i = 0; i < filteredList.length; i++){
                 createGameCard(filteredList[i]);
             }
+            displayedGames = filteredList;
         })
     }
 }
 
 /** Display all saved games */
 const displaySavedGames = function() {
+    for(let i = 0; i < savedGames.length; i++){
 
+    }
 }
 
 /** Populate games list when selecting a system */
@@ -125,20 +145,22 @@ selectSystem.addEventListener("change", (e) => {
         for(let i = 0; i < games.length; i++){
             createGameCard(games[i]);
         };
+        displayedGames = games;
     });
 });
 
 gameSearchForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    filterGames(e);
+    filterGames();
 });
 
 /** Toggle display to show saved or searched games */
 savedListButton.addEventListener("click", (e) => {
+    gameListEl.innerHTML = "";
     if(savedListDisplay === false){
-
+        displaySavedGames();
     } else {
-        filterGames(e);
+        filterGames();
     }
 });
 
