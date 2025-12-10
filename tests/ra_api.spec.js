@@ -13,7 +13,6 @@ describe("RetroAchievements API", () =>{
             testID = "41";
             const result = await api.getGamesForSystem(testID);
             console.log(result);
-            debugger;
 
             const testGame = null;
     });
