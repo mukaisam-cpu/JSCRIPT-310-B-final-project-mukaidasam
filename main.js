@@ -7,6 +7,7 @@ const selectSystem = document.getElementById("select-system");
 const gameListEl = document.getElementById("game-list");
 
 const savedListButton = document.getElementById("saved-list-button");
+const deleteSavedListButton = document.getElementById("delete-saved-list-button");
 
 /** Delay of API call in ms */
 const API_DELAY = 200
@@ -113,9 +114,11 @@ const saveGameToList = function() {
 
 /** Search, filter game list, and populate page */
 const filterGames = function() {
-    console.log(searchField.value);
-    console.log(selectSystem.value);
+    // Exiting saved list, restore these to default
     savedListDisplay = false;
+    savedListButton.innerText = "Saved Games";
+    deleteSavedListButton.style.display = "none";
+
     const systemID = selectSystem.value;
     if(systemID > 0){
         api.getGamesForSystem(systemID)
@@ -159,11 +162,11 @@ savedListButton.addEventListener("click", (e) => {
     if(savedListDisplay === false){
         displaySavedGames();
         savedListDisplay = true;
+        deleteSavedListButton.style.display = ""
         savedListButton.innerText = "Return to Search";
     } else {
         // set savedListDisplay to false in filterGames() in case search is pressed in saved list
         filterGames();
-        savedListButton.innerText = "Saved Games";
     }
 });
 
