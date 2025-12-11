@@ -42,8 +42,10 @@ class GameList {
     removeFromList(gameID) {
         const newList = this.savedList.filter(game => game.id !== gameID);
         // If ID is not found, index will be -1
+        // debugger;
         if(newList !== this.savedList) {
             localStorage.setItem("gameList", JSON.stringify(newList));
+            this.savedList = newList;
         } else {
             console.log(`WARNING: Trying to delete ${gameID} from saved list,
                 game ID not found`);
