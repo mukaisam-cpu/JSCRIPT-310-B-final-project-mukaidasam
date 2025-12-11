@@ -108,6 +108,7 @@ const saveGameToList = function() {
     }
     this.classList.toggle("btn-primary");
     this.classList.toggle("btn-danger");
+    console.log(this.classList);
 }
 
 /** Search, filter game list, and populate page */
@@ -132,10 +133,11 @@ const filterGames = function() {
 
 /** Display all saved games */
 const displaySavedGames = function() {
-    console.log(savedGames);
-    for(let i = 0; i < savedGames.length; i++){
-        createGameCard(savedGames[i]);
+    console.log(displayedGames);
+    for(let i = 0; i < savedGames.savedList.length; i++){
+        createGameCard(savedGames.savedList[i]);
     }
+    displayedGames = savedGames.savedList;
 }
 
 /** Populate games list when selecting a system */
