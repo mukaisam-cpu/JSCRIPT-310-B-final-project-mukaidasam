@@ -114,6 +114,7 @@ const saveGameToList = function() {
 const filterGames = function() {
     console.log(searchField.value);
     console.log(selectSystem.value);
+    savedListDisplay = false;
     const systemID = selectSystem.value;
     if(systemID > 0){
         api.getGamesForSystem(systemID)
@@ -157,10 +158,15 @@ gameSearchForm.addEventListener("submit", (e) => {
 /** Toggle display to show saved or searched games */
 savedListButton.addEventListener("click", (e) => {
     gameListEl.innerHTML = "";
+    console.log(savedListDisplay);
     if(savedListDisplay === false){
         displaySavedGames();
+        savedListDisplay = true;
+        savedListButton.innerText = "Return to Search";
     } else {
+        // set savedListDisplay to false in filterGames() in case search is pressed in saved list
         filterGames();
+        savedListButton.innerText = "Saved Games";
     }
 });
 
