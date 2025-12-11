@@ -170,4 +170,9 @@ savedListButton.addEventListener("click", (e) => {
     }
 });
 
+deleteSavedListButton.addEventListener("click", (e) => {
+    savedGames.clearGameList();
+    gameListEl.innerHTML = "";
+})
+
 populateSystemSelect(api);
