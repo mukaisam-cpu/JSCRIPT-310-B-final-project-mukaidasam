@@ -132,8 +132,9 @@ const filterGames = function() {
 
 /** Display all saved games */
 const displaySavedGames = function() {
+    console.log(savedGames);
     for(let i = 0; i < savedGames.length; i++){
-
+        createGameCard(savedGames[i]);
     }
 }
 
@@ -141,13 +142,7 @@ const displaySavedGames = function() {
 selectSystem.addEventListener("change", (e) => {
     console.log("changed", e.target.value);
     gameListEl.innerHTML = "";
-    api.getGamesForSystem(e.target.value)
-    .then(games => {
-        for(let i = 0; i < games.length; i++){
-            createGameCard(games[i]);
-        };
-        displayedGames = games;
-    });
+    filterGames();
 });
 
 gameSearchForm.addEventListener("submit", (e) => {
