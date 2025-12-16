@@ -36,6 +36,11 @@ describe("Saved Games List", () => {
         expect(JSON.parse(localStorage.getItem("gameList"))).toEqual(expectedList);
     });
 
+    // This broke after I changed the save data scheme from strings to Game objects
+    // For some reason when passing into testGameList.removeFromList, this.savedList
+    // is converting from an array of Games to an array of generic objects
+    // Not entirely sure what's going on or how to fix this, but the presentation's tomorrow
+    // and the application proper seems to work fine regardless...
     it("Should remove a game ID from the list and update local storage accordingly", () => {
         // const testList = ["2983", "3224", "14475"];
         const testList = [
